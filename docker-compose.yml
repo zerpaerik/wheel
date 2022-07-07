@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  web:
+    networks:
+      wheel-net:
+        ipv4_address: 173.17.0.2
+    ports:
+      - 8885:4000
+    build: .
+    links:
+      - "redis-service:redis"
+  redis-service:
+    image: redis
+    networks:
+      wheel-net:
+        ipv4_address: 173.17.0.3
+    ports:
+      - 8882:6379
+networks:
+  wheel-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "173.17.0.0/16"
+        
